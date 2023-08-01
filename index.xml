@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on A Demo Site for TatBanTheme2.0</title>
+    <link>http://shuosong-econ.github.io/</link>
+    <description>Recent content in Home on A Demo Site for TatBanTheme2.0</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 30 Jul 2016 21:41:13 -0400</lastBuildDate><atom:link href="http://shuosong-econ.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blog Post with Typography</title>
+      <link>http://shuosong-econ.github.io/posts/first-blog-post/</link>
+      <pubDate>Sat, 30 Jul 2016 21:41:13 -0400</pubDate>
+      
+      <guid>http://shuosong-econ.github.io/posts/first-blog-post/</guid>
+      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Primum in nostrane potestate est, quid meminerimus? Quid ergo attinet dicere: Nihil haberem, quod reprehenderem, si finitas cupiditates haberent? Traditur, inquit, ab Epicuro ratio neglegendi doloris. Idem iste, inquam, de voluptate quid sentit?&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>The second blog post with an image</title>
+      <link>http://shuosong-econ.github.io/posts/second-blog-post/</link>
+      <pubDate>Mon, 20 Jul 2015 21:41:13 -0400</pubDate>
+      
+      <guid>http://shuosong-econ.github.io/posts/second-blog-post/</guid>
+      <description>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque porro quisquam est, qui dolorem ipsum, quia dolor sit amet consectetur adipisc velit, sed quia non numquam eius modi tempora, ut labore et dolore magnam aliquam quaerat voluptatem.</description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>http://shuosong-econ.github.io/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://shuosong-econ.github.io/contact/</guid>
+      <description>
+Ways to Contact Email IDs and Phone No. The best way to reach me is to drop an email at username@example.org. Additionally you can contact me on my mobile number: +1 XXX-XXX-4985 Current Address You can put deatails here, if you wish.
+On Social Networks Here are my Facebook account, Twitter account, and Linkedin account </description>
+    </item>
+    
+    <item>
+      <title>Publications</title>
+      <link>http://shuosong-econ.github.io/publication/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://shuosong-econ.github.io/publication/</guid>
+      <description>Selected Publications Journal Articles Firstname Lastname, Another Name, and Yet Another Name. “Put your awesome title here”, Journal of Something, 2022, 6, 32. DOI: 10.1126/xxxxxx.xxxxxxx.
+Another Name, Yet Another Name, and Firstname Lastname. “Put your awesome second title here”, Journal of Some Society, 2019, 63(4-2-10): 307–312. DOI: 10.1387/xxxx.xxxxxxxx
+Firstname Lastname, Second name, Another Name, and Yet Another Name. “Lorem ipsum dolor sit amet, consectetur adipiscing elit”, Enim eget consequat vestibulum, 2019, 15(3): e5959.</description>
+    </item>
+    
+    <item>
+      <title>Research</title>
+      <link>http://shuosong-econ.github.io/research/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://shuosong-econ.github.io/research/</guid>
+      <description>Research Interests &amp;ldquo;You can use any great quotation here which is relevant to your field&amp;rdquo;
+—— Firstname Lastname, Institution
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Diam phasellus vestibulum lorem sed risus ultricies tristique. Bibendum at varius vel pharetra vel turpis nunc eget. Id eu nisl nunc mi ipsum. Ultrices in iaculis nunc sed augue lacus viverra. Adipiscing elit pellentesque habitant morbi tristique senectus et netus et.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Category1 on A Demo Site for TatBanTheme2.0</title>
+    <link>http://shuosong-econ.github.io/categories/category1/</link>
+    <description>Recent content in Category1 on A Demo Site for TatBanTheme2.0</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 30 Jul 2016 21:41:13 -0400</lastBuildDate><atom:link href="http://shuosong-econ.github.io/categories/category1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blog Post with Typography</title>
+      <link>http://shuosong-econ.github.io/posts/first-blog-post/</link>
+      <pubDate>Sat, 30 Jul 2016 21:41:13 -0400</pubDate>
+      
+      <guid>http://shuosong-econ.github.io/posts/first-blog-post/</guid>
+      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Primum in nostrane potestate est, quid meminerimus? Quid ergo attinet dicere: Nihil haberem, quod reprehenderem, si finitas cupiditates haberent? Traditur, inquit, ab Epicuro ratio neglegendi doloris. Idem iste, inquam, de voluptate quid sentit?&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
