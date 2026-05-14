@@ -100,3 +100,33 @@ gsap.utils.toArray('.photo-item').forEach((photo, i) => {
         ease: 'power2.out'
     });
 });
+
+// Book Cards Stagger
+gsap.utils.toArray('.book-card').forEach((card, i) => {
+    gsap.to(card, {
+        scrollTrigger: {
+            trigger: card,
+            start: 'top 85%',
+        },
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        delay: i * 0.1,
+        ease: 'power2.out'
+    });
+});
+
+// Essai Items Stagger
+gsap.utils.toArray('.essai-item').forEach((item, i) => {
+    gsap.to(item, {
+        scrollTrigger: {
+            trigger: item,
+            start: 'top 85%',
+        },
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        delay: i * 0.1,
+        ease: 'power2.out'
+    });
+});

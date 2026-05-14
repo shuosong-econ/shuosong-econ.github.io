@@ -13,20 +13,20 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#4F46E5',
+                        primary: '#061987',
                         secondary: '#F3F4F6',
                         accent: '#06B6D4',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['"TeXGyreAdventorRegular"', 'sans-serif'],
                     },
                 }
             }
         }
     </script>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/tex-gyre-adventor" type="text/css" />
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -48,6 +48,10 @@
                 <a href="#hero" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Home</a>
                 <a href="#research"
                     class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Research</a>
+                <a href="#library"
+                    class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Library</a>
+                <a href="#essai"
+                    class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Essai</a>
                 <a href="#gallery"
                     class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Gallery</a>
             </div>
@@ -59,10 +63,12 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full">
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
             <div class="px-4 py-2 space-y-1">
                 <a href="#hero" class="block py-2 text-gray-700 hover:text-primary">Home</a>
                 <a href="#research" class="block py-2 text-gray-700 hover:text-primary">Research</a>
+                <a href="#library" class="block py-2 text-gray-700 hover:text-primary">Library</a>
+                <a href="#essai" class="block py-2 text-gray-700 hover:text-primary">Essai</a>
                 <a href="#gallery" class="block py-2 text-gray-700 hover:text-primary">Gallery</a>
             </div>
         </div>
@@ -155,7 +161,8 @@
                         <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">In Progress</span>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-                        Arena: Competition Dynamics in the LLMs Market.
+                        Nonstationary Intelligence Demand, Data Flywheel, and the Strategic Release of Large Language
+                        Models.
                     </h3>
                     <p class="text-sm text-gray-500 mb-4 italic">Shuo Song</p>
                     <p class="text-gray-600 mb-6 line-clamp-3">
@@ -217,6 +224,78 @@
                     </a>
                     -->
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Library Section -->
+    <section id="library" class="py-24 bg-secondary relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="section-header text-center mb-16 opacity-0 translate-y-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Library</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    A curated selection of books that have shaped my perspective.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Book Card 1 -->
+                <div
+                    class="book-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all group opacity-0 translate-y-10 flex flex-col items-center text-center cursor-pointer">
+                    <div
+                        class="w-40 h-56 mb-6 overflow-hidden rounded-md shadow-md group-hover:shadow-lg transition-shadow">
+                        <img src="figures/jiaxuan.jpg" alt="稼轩词编年笺注"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                        稼轩词编年笺注
+                    </h3>
+                    <p class="text-sm text-gray-500 mb-4 italic">[宋] 辛弃疾 著 / 邓广铭 注解</p>
+                    <p class="text-gray-600 text-sm leading-relaxed line-clamp-4 text-justify">
+                        词中之龙。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Essai Section -->
+    <section id="essai" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="section-header text-center mb-16 opacity-0 translate-y-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Essai</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Personal reflections, scattered thoughts, and academic musings.
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto space-y-8">
+                <!-- Essai Item 1 -->
+                <article
+                    class="essai-item group flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 rounded-2xl border border-transparent hover:border-gray-100 hover:bg-secondary/50 transition-all cursor-pointer opacity-0 translate-y-10">
+                    <div class="w-full sm:w-48 h-48 sm:h-32 flex-shrink-0 overflow-hidden rounded-xl shadow-sm">
+                        <img src="figures/essai_thumbnail.png" alt="Thumbnail"
+                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="flex-1 w-full text-left">
+                        <div class="flex items-center text-sm text-gray-400 mb-2 space-x-4">
+                            <span><i data-lucide="calendar" class="inline w-4 h-4 mr-1"></i> May 14, 2026</span>
+                            <span
+                                class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">Musings</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">
+                            Test Title
+                        </h3>
+                        <p class="text-gray-600 mb-4 line-clamp-2">
+                            Test Content...
+                        </p>
+                        <a href="#"
+                            class="inline-flex items-center text-primary font-medium hover:text-indigo-800 transition-colors text-sm">
+                            Read Essay <i data-lucide="arrow-right"
+                                class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -464,7 +543,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
             <div class="mb-4 md:mb-0">
                 <p class="text-gray-500 text-sm">
-                    © 2025 Shuo Song. All rights reserved.
+                    © 2026 Shuo Song. All rights reserved.
                 </p>
             </div>
 
