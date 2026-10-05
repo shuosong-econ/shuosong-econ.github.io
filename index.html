@@ -1,569 +1,866 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f1f2ee" />
+    <meta
+      name="description"
+      content="The personal archive of Shuo Song. Economics, research, reading, and traces of a life beyond the work."
+    />
+    <meta property="og:title" content="Shuo Song — An Open Archive" />
+    <meta
+      property="og:description"
+      content="Research, ideas, and other things worth keeping."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://shuosong-econ.github.io/" />
+    <link rel="canonical" href="https://shuosong-econ.github.io/" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Shuo Song — An Open Archive</title>
+    <script src="script.js" defer></script>
+  </head>
+  <body data-phase="sealed" data-view="archive">
+    <div class="paper-grain" aria-hidden="true"></div>
+    <div id="app">
+      <a class="skip-link" href="#main">Skip to content</a>
+      <header class="site-header">
+        <a
+          href="#archive"
+          class="identity"
+          aria-label="Shuo Song, return to archive"
+          ><span class="identity-mark" aria-hidden="true"
+            ><i></i><i></i><i></i></span
+          ><span>SHUO SONG<small>AN OPEN ARCHIVE</small></span></a
+        >
+        <span class="header-coordinates mono"
+          >PRIVATE THOUGHTS <span>/</span> PUBLIC RECORDS</span
+        >
+        <div class="header-tools">
+          <button id="open-index" class="index-button">
+            Index <kbd>⌘ K</kbd></button
+          ><button
+            id="motion-toggle"
+            class="motion-button"
+            aria-label="Pause ambient motion"
+            aria-pressed="false"
+          >
+            <span aria-hidden="true">Ⅱ</span>
+          </button>
+        </div>
+      </header>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shuo Song | Economics</title>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#061987',
-                        secondary: '#F3F4F6',
-                        accent: '#06B6D4',
-                    },
-                    fontFamily: {
-                        sans: ['"TeXGyreAdventorRegular"', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
-
-    <!-- Fonts are loaded via local @font-face in styles.css -->
-
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-
-<body class="bg-secondary text-gray-900 antialiased overflow-x-hidden">
-
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-6 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold tracking-tighter">
-                SHUO<span class="text-primary">.IO</span>
-            </a>
-
-            <div class="hidden md:flex space-x-8">
-                <a href="#hero" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Home</a>
-                <a href="#research"
-                    class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Research</a>
-                <a href="#library"
-                    class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Library</a>
-                <a href="#essai"
-                    class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Essai</a>
-                <a href="#gallery"
-                    class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Gallery</a>
+      <main id="main" tabindex="-1">
+        <section
+          id="archive"
+          class="archive-room view active"
+          aria-labelledby="archive-title"
+        >
+          <div class="room-heading hub-reveal">
+            <div>
+              <p class="eyebrow">THE COLLECTION / 01—04</p>
+              <h1 id="archive-title" tabindex="-1">The collection.</h1>
             </div>
+            <aside class="visitor-card" aria-label="Your visitor pass">
+              <div class="visitor-card-head mono">
+                <span class="visitor-signal" aria-hidden="true"></span>VISITOR /
+                CONNECTED<span id="visitor-pass">—</span>
+              </div>
+              <p class="visitor-greeting" id="visitor-greeting">
+                Welcome, traveller.
+              </p>
+              <div class="visitor-readings">
+                <div>
+                  <span class="visitor-label mono">YOUR LOCAL TIME</span
+                  ><time id="visitor-clock">—</time>
+                </div>
+                <div>
+                  <span class="visitor-label mono">APPROX. ARRIVAL FROM</span
+                  ><span id="visitor-location" role="status"
+                    >Locating your signal…</span
+                  >
+                </div>
+              </div>
+              <details class="visitor-context">
+                <summary>
+                  About this connection <span aria-hidden="true">+</span>
+                </summary>
+                <p>
+                  Your name stays in this tab. The approximate location comes
+                  from an IP lookup by
+                  <a
+                    href="https://ipapi.is/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >ipapi.is</a
+                  >; it may reflect a VPN or network gateway. No GPS is used.
+                </p>
+              </details>
+            </aside>
+          </div>
+          <div class="room-stage" id="room-stage">
+            <div class="landing-shadow" aria-hidden="true"></div>
+            <div class="stage-datum datum-top" aria-hidden="true">
+              <span>+</span><span>+</span>
+            </div>
+            <div class="stage-datum datum-bottom" aria-hidden="true">
+              <span>+</span><span>+</span>
+            </div>
+            <div class="specimen-rule" aria-hidden="true"></div>
+            <div class="archive-deck" id="archive-deck">
+              <a
+                class="archive-slab"
+                href="#intro"
+                data-slab="0"
+                style="--i: 0"
+                aria-label="Open Intro — the person behind the work"
+              >
+                <div class="slab-body">
+                  <div class="slab-edge"></div>
+                  <span class="slab-corner c-tl"></span
+                  ><span class="slab-corner c-br"></span>
+                  <div class="slab-top mono">
+                    <span>SS / 01</span><span>PERSONNEL</span>
+                  </div>
+                  <canvas
+                    class="relief"
+                    data-pattern="0"
+                    width="480"
+                    height="620"
+                    aria-hidden="true"
+                  ></canvas>
+                  <div class="slab-stamp mono">
+                    SHUO SONG<br />PERSONAL RECORD
+                  </div>
+                  <div class="slab-bottom">
+                    <span class="slab-number">01</span
+                    ><span class="slab-barcode" aria-hidden="true"></span>
+                  </div>
+                  <div class="slab-glint"></div>
+                </div>
+                <div class="slab-caption">
+                  <span class="caption-title">Intro</span
+                  ><span class="caption-description"
+                    >The person behind the work.</span
+                  ><span class="caption-open" aria-hidden="true"
+                    >OPEN RECORD <i>+</i></span
+                  >
+                </div>
+              </a>
+              <a
+                class="archive-slab"
+                href="#research"
+                data-slab="1"
+                style="--i: 1"
+                aria-label="Open Research — questions under investigation"
+              >
+                <div class="slab-body">
+                  <div class="slab-edge"></div>
+                  <span class="slab-corner c-tl"></span
+                  ><span class="slab-corner c-br"></span>
+                  <div class="slab-top mono">
+                    <span>SS / 02</span><span>RESEARCH</span>
+                  </div>
+                  <canvas
+                    class="relief"
+                    data-pattern="1"
+                    width="480"
+                    height="620"
+                    aria-hidden="true"
+                  ></canvas>
+                  <div class="slab-stamp mono">
+                    IDEAS IN FORMATION<br />WORK IN PROGRESS
+                  </div>
+                  <div class="slab-bottom">
+                    <span class="slab-number">02</span
+                    ><span class="slab-barcode" aria-hidden="true"></span>
+                  </div>
+                  <div class="slab-glint"></div>
+                </div>
+                <div class="slab-caption">
+                  <span class="caption-title">Research</span
+                  ><span class="caption-description"
+                    >Questions under investigation.</span
+                  ><span class="caption-open" aria-hidden="true"
+                    >OPEN RECORD <i>+</i></span
+                  >
+                </div>
+              </a>
+              <a
+                class="archive-slab"
+                href="#journal"
+                data-slab="2"
+                style="--i: 2"
+                aria-label="Open Journal — notes in the margin"
+              >
+                <div class="slab-body">
+                  <div class="slab-edge"></div>
+                  <span class="slab-corner c-tl"></span
+                  ><span class="slab-corner c-br"></span>
+                  <div class="slab-top mono">
+                    <span>SS / 03</span><span>JOURNAL</span>
+                  </div>
+                  <canvas
+                    class="relief"
+                    data-pattern="2"
+                    width="480"
+                    height="620"
+                    aria-hidden="true"
+                  ></canvas>
+                  <div class="slab-stamp mono">
+                    NOTES IN THE MARGIN<br />AN OPEN NOTEBOOK
+                  </div>
+                  <div class="slab-bottom">
+                    <span class="slab-number">03</span
+                    ><span class="slab-barcode" aria-hidden="true"></span>
+                  </div>
+                  <div class="slab-glint"></div>
+                </div>
+                <div class="slab-caption">
+                  <span class="caption-title">Journal</span
+                  ><span class="caption-description"
+                    >Thoughts still taking shape.</span
+                  ><span class="caption-open" aria-hidden="true"
+                    >OPEN RECORD <i>+</i></span
+                  >
+                </div>
+              </a>
+              <a
+                class="archive-slab"
+                href="#library"
+                data-slab="3"
+                style="--i: 3"
+                aria-label="Open Library — words that stay"
+              >
+                <div class="slab-body">
+                  <div class="slab-edge"></div>
+                  <span class="slab-corner c-tl"></span
+                  ><span class="slab-corner c-br"></span>
+                  <div class="slab-top mono">
+                    <span>SS / 04</span><span>LIBRARY</span>
+                  </div>
+                  <canvas
+                    class="relief"
+                    data-pattern="3"
+                    width="480"
+                    height="620"
+                    aria-hidden="true"
+                  ></canvas>
+                  <div class="slab-stamp mono">
+                    OTHER WAYS OF SEEING<br />SELECTED READING
+                  </div>
+                  <div class="slab-bottom">
+                    <span class="slab-number">04</span
+                    ><span class="slab-barcode" aria-hidden="true"></span>
+                  </div>
+                  <div class="slab-glint"></div>
+                </div>
+                <div class="slab-caption">
+                  <span class="caption-title">Library</span
+                  ><span class="caption-description">Words that stay.</span
+                  ><span class="caption-open" aria-hidden="true"
+                    >OPEN RECORD <i>+</i></span
+                  >
+                </div>
+              </a>
+            </div>
+            <div class="seal-label mono" aria-hidden="true">
+              <span class="seal-square"></span> SS—ARCHIVE <span>/</span> SEALED
+            </div>
+            <div class="release-line" aria-hidden="true"></div>
+          </div>
+          <div class="collection-controls hub-reveal">
+            <span class="mono collection-hint">SELECT A RECORD TO UNFOLD</span>
+            <div class="mobile-selector" aria-label="Select a record">
+              <button data-select="0" aria-pressed="true">
+                01 <span>Intro</span></button
+              ><button data-select="1" aria-pressed="false">
+                02 <span>Research</span></button
+              ><button data-select="2" aria-pressed="false">
+                03 <span>Journal</span></button
+              ><button data-select="3" aria-pressed="false">
+                04 <span>Library</span>
+              </button>
+            </div>
+            <span class="mono collection-end"
+              >FOUR FRAGMENTS OF AN ONGOING STORY</span
+            >
+          </div>
+          <button
+            id="light-leak"
+            class="light-leak hub-reveal"
+            aria-label="Follow the light"
+            aria-describedby="leak-hint"
+          >
+            <span class="leak-line" aria-hidden="true"></span
+            ><span class="leak-coordinates mono" aria-hidden="true">λ / 16</span
+            ><span class="leak-hint" id="leak-hint"
+              >Some things escape the archive.</span
+            >
+          </button>
+        </section>
 
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-gray-700">
-                <i data-lucide="menu"></i>
+        <div class="reading-room" id="reading-room" hidden>
+          <div class="reading-toolbar">
+            <a href="#archive" class="back-link"
+              ><span aria-hidden="true">←</span> Return to the collection</a
+            >
+            <nav aria-label="Reading navigation">
+              <a href="#intro" aria-label="01 Intro">01</a
+              ><a href="#research" aria-label="02 Research">02</a
+              ><a href="#journal" aria-label="03 Journal">03</a
+              ><a href="#library" aria-label="04 Library">04</a>
+            </nav>
+          </div>
+          <section id="intro" class="reader view" aria-labelledby="intro-title">
+            <header class="reader-heading">
+              <p class="eyebrow">01 / PERSONNEL RECORD</p>
+              <h2 id="intro-title" tabindex="-1">
+                Shuo Song<span class="serif-dot">.</span>
+              </h2>
+              <span class="reader-subtitle"
+                >Economist. Researcher. Observer.</span
+              >
+            </header>
+            <div class="profile-layout">
+              <figure class="portrait">
+                <img
+                  src="assets/photos/photo2.webp"
+                  width="800"
+                  height="800"
+                  alt="Shuo Song holding a camera"
+                />
+                <figcaption class="mono">
+                  THE PERSON / BEHIND THE LENS
+                </figcaption>
+              </figure>
+              <div class="profile-copy">
+                <p class="lead">
+                  I study the systems<br />behind intelligence.
+                </p>
+                <p>
+                  I am a PhD student at the
+                  <a
+                    href="https://www.tse-fr.eu/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Toulouse School of Economics</a
+                  >, France. My research interests lie in empirical industrial
+                  organization.
+                </p>
+                <p>
+                  My current work focuses on the industrial organization of
+                  generative AI: competition among large language models and the
+                  infrastructure behind them, including semiconductors and
+                  energy.
+                </p>
+                <p>
+                  Before joining TSE, I obtained my Bachelor’s degree from the
+                  Wang Yanan Institute for Studies in Economics (WISE) at Xiamen
+                  University, China.
+                </p>
+                <div class="personal-aside">
+                  <span class="mono">OUTSIDE THE FRAME</span>
+                  <p>
+                    Photography. The history of the Ming Empire.<br />And the
+                    poetry of Xin Qiji.
+                  </p>
+                </div>
+                <a href="mailto:shuo.song@tse-fr.eu" class="text-link"
+                  >shuo.song@tse-fr.eu <span aria-hidden="true">↗</span></a
+                >
+              </div>
+            </div>
+          </section>
+          <section
+            id="research"
+            class="reader view"
+            aria-labelledby="research-title"
+          >
+            <header class="reader-heading">
+              <p class="eyebrow">02 / INVESTIGATIONS</p>
+              <h2 id="research-title" tabindex="-1">
+                Questions,<br /><em>still open.</em>
+              </h2>
+              <span class="reader-subtitle"
+                >Empirical industrial organization · Generative AI ·
+                Infrastructure</span
+              >
+            </header>
+            <article class="research-record">
+              <span class="record-no mono">R / 001</span>
+              <div>
+                <div class="record-meta mono">
+                  <span>GENERATIVE AI</span><span>IN PROGRESS</span>
+                </div>
+                <h3>
+                  Nonstationary Intelligence Demand, Data Flywheel, and the
+                  Strategic Release of Large Language Models.
+                </h3>
+                <div class="record-actions">
+                  <span>Shuo Song</span
+                  ><button data-paper="0" class="text-link">
+                    Unfold record <span aria-hidden="true">+</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+            <article class="research-record">
+              <span class="record-no mono">R / 002</span>
+              <div>
+                <div class="record-meta mono">
+                  <span>AI INFRASTRUCTURE</span><span>IN PROGRESS</span>
+                </div>
+                <h3>
+                  Who Snatched Your Deal: AI Race and Memory Device Market.
+                </h3>
+                <div class="record-actions">
+                  <span>Shuo Song</span
+                  ><button data-paper="1" class="text-link">
+                    Unfold record <span aria-hidden="true">+</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+            <div class="reader-postscript">
+              <span class="mono">RESEARCH IS A CONVERSATION.</span
+              ><a href="mailto:shuo.song@tse-fr.eu" class="text-link"
+                >Let’s exchange ideas <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </section>
+          <section
+            id="journal"
+            class="reader view"
+            aria-labelledby="journal-title"
+          >
+            <header class="reader-heading">
+              <p class="eyebrow">03 / NOTES IN THE MARGIN</p>
+              <h2 id="journal-title" tabindex="-1">
+                Before an idea<br /><em>finds its form.</em>
+              </h2>
+              <span class="reader-subtitle"
+                >Personal reflections, questions, and unfinished thoughts.</span
+              >
+            </header>
+            <div class="notebook">
+              <div class="notebook-margin mono">ENTRY / —</div>
+              <div class="notebook-copy">
+                <span class="notebook-asterisk" aria-hidden="true">∗</span>
+                <h3>A page left open.</h3>
+                <p>
+                  No essays have been published here yet.<br />There is room for
+                  what comes next.
+                </p>
+                <a class="text-link" href="#library"
+                  >Visit the reading room <span aria-hidden="true">↗</span></a
+                >
+              </div>
+            </div>
+          </section>
+          <section
+            id="library"
+            class="reader view"
+            aria-labelledby="library-title"
+          >
+            <header class="reader-heading">
+              <p class="eyebrow">04 / SELECTED READING</p>
+              <h2 id="library-title" tabindex="-1">
+                Other lives,<br /><em>in words.</em>
+              </h2>
+              <span class="reader-subtitle"
+                >A small collection of lasting companions.</span
+              >
+            </header>
+            <article class="book-record">
+              <div class="book-image">
+                <span class="mono">L / 001</span
+                ><img
+                  src="assets/photos/jiaxuan.webp"
+                  width="540"
+                  height="800"
+                  alt="Cover of 稼轩词编年笺注"
+                  loading="lazy"
+                />
+              </div>
+              <div class="book-copy">
+                <p class="eyebrow">POETRY / 诗词</p>
+                <h3 lang="zh">稼轩词编年笺注</h3>
+                <p lang="zh" class="book-author">
+                  [宋] 辛弃疾 著 · 邓广铭 笺注
+                </p>
+                <p class="book-quote" lang="zh">词中之龙。</p>
+                <p>
+                  Xin Qiji is my favorite poet. This annotated, chronological
+                  collection has a place on my personal bookshelf.
+                </p>
+              </div>
+            </article>
+          </section>
+          <footer class="reader-footer mono">
+            <span>SHUO SONG / PERSONAL ARCHIVE</span
+            ><a
+              href="https://github.com/shuosong-econ"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GITHUB ↗</a
+            >
+          </footer>
+        </div>
+
+        <section
+          id="gallery"
+          class="elsewhere view"
+          aria-labelledby="gallery-title"
+          hidden
+        >
+          <canvas
+            class="ambient-field"
+            id="ambient-field"
+            aria-hidden="true"
+          ></canvas>
+          <div class="ambient-shade" aria-hidden="true"></div>
+          <header class="elsewhere-header">
+            <a href="#archive" class="back-link"
+              ><span aria-hidden="true">←</span> Return to the archive</a
+            ><span class="mono">THE UNCATALOGUED / 16 MOMENTS</span
+            ><button id="open-contact-sheet">
+              Contact sheet <span aria-hidden="true">⊞</span>
             </button>
+          </header>
+          <div class="elsewhere-intro">
+            <div>
+              <p class="eyebrow">YOU FOLLOWED THE LIGHT.</p>
+              <h2 id="gallery-title" tabindex="-1">Elsewhere<span>.</span></h2>
+            </div>
+            <p>Beyond the work,<br />the world kept its colours.</p>
+          </div>
+          <div class="exhibition" id="exhibition">
+            <button
+              class="exhibit-arrow previous"
+              id="previous-photo"
+              aria-label="Previous photograph"
+            >
+              ←</button
+            ><button
+              id="enlarge-photo"
+              class="exhibit-image-button"
+              aria-label="Enlarge photograph"
+            >
+              <img
+                id="exhibit-image"
+                src="assets/photos/toulouse-large.webp"
+                width="1920"
+                height="1280"
+                alt="La Garonne, Toulouse"
+              /><span class="photo-mat" aria-hidden="true"></span></button
+            ><button
+              class="exhibit-arrow next"
+              id="next-photo"
+              aria-label="Next photograph"
+            >
+              →
+            </button>
+          </div>
+          <div class="exhibit-caption">
+            <div>
+              <span class="mono" id="photo-location">TOULOUSE, FRANCE</span>
+              <h3 id="photo-title">La Garonne, Toulouse</h3>
+            </div>
+            <span class="photo-index"
+              ><b id="photo-counter">01</b><span>/ 16</span></span
+            >
+          </div>
+          <div
+            class="filmstrip"
+            id="filmstrip"
+            aria-label="Choose a photograph"
+          ></div>
+          <footer class="elsewhere-footer">
+            <span class="mono">A LITTLE LIGHT, KEPT FOR LATER.</span>
+          </footer>
+          <noscript
+            ><p>
+              <a href="figures/Toulouse.jpg">Toulouse</a> ·
+              <a href="figures/Najac.jpg">Najac</a> ·
+              <a href="figures/xmas.jpg">Le Capitole</a> ·
+              <a href="figures/TSE.jpg">TSE</a> ·
+              <a href="figures/Qingdao.JPG">Tsingtao</a> ·
+              <a href="figures/westlake.jpg">West Lake</a> ·
+              <a href="figures/yuewang.jpg">Yuewang Temple</a> ·
+              <a href="figures/wukong.jpg">Black Myth: Wukong</a> ·
+              <a href="figures/albi.jpg">Albi</a> ·
+              <a href="figures/nice.jpg">Nice</a> ·
+              <a href="figures/antibes.jpg">Antibes</a> ·
+              <a href="figures/monaco.jpg">Monaco</a> ·
+              <a href="figures/cannes.jpg">Cannes</a> ·
+              <a href="figures/collioure.jpg">Collioure</a> ·
+              <a href="figures/xmu.jpeg">Xiamen University</a> ·
+              <a href="figures/plane.jpg">Light Painting</a>
+            </p></noscript
+          >
+        </section>
+      </main>
+      <footer class="system-footer mono">
+        <span id="session-label">VISITOR PROTOCOL / AWAITING ENTRY</span
+        ><span id="route-indicator">SS—ARCHIVE</span
+        ><button id="replay-intro">
+          Begin again <span aria-hidden="true">⟳</span>
+        </button>
+      </footer>
+    </div>
+
+    <dialog id="entry" class="entry" aria-labelledby="entry-title">
+      <div class="threshold-mark" aria-hidden="true"><i></i><i></i></div>
+      <form id="entry-form" class="threshold-form">
+        <p class="eyebrow">YOU ARE HERE.</p>
+        <h2 id="entry-title" tabindex="-1">Beyond this point.</h2>
+        <div
+          class="entry-protocol"
+          id="entry-protocol"
+          data-step="0"
+          aria-label="Arrival sequence"
+        >
+          <ol class="protocol-steps mono">
+            <li data-state="active">
+              <span class="protocol-number">01</span
+              ><span>Establishing a signal</span
+              ><span class="protocol-state">LISTENING</span>
+            </li>
+            <li data-state="pending">
+              <span class="protocol-number">02</span
+              ><span>Opening a channel</span
+              ><span class="protocol-state">STANDBY</span>
+            </li>
+            <li data-state="pending">
+              <span class="protocol-number">03</span
+              ><span id="identity-step">Awaiting your identity</span
+              ><span class="protocol-state">OPTIONAL</span>
+            </li>
+          </ol>
+          <div class="protocol-track" aria-hidden="true"><i></i></div>
+          <p
+            id="entry-message"
+            class="protocol-message"
+            role="status"
+            aria-live="polite"
+          >
+            Listening for a signal.
+          </p>
         </div>
+        <label class="sr-only" for="visitor-name">Your name (optional)</label>
+        <input
+          id="visitor-name"
+          name="visitor-name"
+          maxlength="48"
+          autocomplete="nickname"
+          placeholder="Your name, if you wish"
+          spellcheck="false"
+          aria-describedby="entry-message"
+        />
+        <p class="threshold-note">Only for this visit.</p>
+        <button class="entry-button" id="enter-archive" type="submit" disabled>
+          <span>Enter</span><span aria-hidden="true">↗</span>
+        </button>
+        <button
+          class="anonymous-entry"
+          id="enter-anonymously"
+          type="button"
+          disabled
+        >
+          Continue anonymously
+        </button>
+      </form>
+      <div class="threshold-foot">
+        <span class="mono">A MOMENT BETWEEN WORLDS</span>
+        <button id="skip-loading" class="quiet-button" type="button">
+          Skip wait
+        </button>
+      </div>
+    </dialog>
+    <div id="transition-veil" class="transition-veil" aria-hidden="true">
+      <div class="veil-line"></div>
+      <span id="transition-caption" class="mono"></span>
+    </div>
+    <div
+      id="transition-plate"
+      class="transition-plate"
+      aria-hidden="true"
+    ></div>
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg">
-            <div class="px-4 py-2 space-y-1">
-                <a href="#hero" class="block py-2 text-gray-700 hover:text-primary">Home</a>
-                <a href="#research" class="block py-2 text-gray-700 hover:text-primary">Research</a>
-                <a href="#library" class="block py-2 text-gray-700 hover:text-primary">Library</a>
-                <a href="#essai" class="block py-2 text-gray-700 hover:text-primary">Essai</a>
-                <a href="#gallery" class="block py-2 text-gray-700 hover:text-primary">Gallery</a>
-            </div>
+    <div id="light-transition" aria-hidden="true">
+      <div class="light-bloom"></div>
+      <div class="light-filament filament-a"></div>
+      <div class="light-filament filament-b"></div>
+      <div class="light-wash"></div>
+    </div>
+
+    <dialog
+      id="record-dialog"
+      class="record-dialog"
+      aria-labelledby="record-title"
+    >
+      <div class="dialog-top mono">
+        <span id="record-code">RESEARCH RECORD</span
+        ><button data-close aria-label="Close research record">×</button>
+      </div>
+      <div class="record-body">
+        <p class="eyebrow">WORK IN PROGRESS</p>
+        <h2 id="record-title"></h2>
+        <p>Shuo Song</p>
+        <dl>
+          <div>
+            <dt>FIELD</dt>
+            <dd id="record-field"></dd>
+          </div>
+          <div>
+            <dt>STATUS</dt>
+            <dd>Research in progress</dd>
+          </div>
+          <div>
+            <dt>MANUSCRIPT</dt>
+            <dd>Not yet publicly available</dd>
+          </div>
+        </dl>
+        <p class="record-note">
+          The draft and abstract have not been released. For questions about
+          this project, please get in touch.
+        </p>
+        <a
+          id="record-contact"
+          class="text-link"
+          href="mailto:shuo.song@tse-fr.eu"
+          >Contact the author <span aria-hidden="true">↗</span></a
+        >
+      </div>
+    </dialog>
+    <dialog
+      id="search-dialog"
+      class="search-dialog"
+      aria-labelledby="search-title"
+    >
+      <div class="dialog-top">
+        <h2 class="mono" id="search-title">COLLECTION INDEX</h2>
+        <button data-close aria-label="Close search">×</button>
+      </div>
+      <div class="search-content">
+        <label class="sr-only" for="archive-search">Search the archive</label
+        ><input
+          id="archive-search"
+          type="search"
+          placeholder="An idea, a name, a question…"
+          autocomplete="off"
+        />
+        <p id="search-summary" class="mono" role="status"></p>
+        <div id="search-results"></div>
+        <p class="search-hint mono">
+          TAB TO EXPLORE / ENTER TO OPEN / ESC TO RETURN
+        </p>
+      </div>
+    </dialog>
+    <dialog
+      id="contact-sheet"
+      class="contact-sheet"
+      aria-labelledby="sheet-title"
+    >
+      <div class="dialog-top">
+        <h2 id="sheet-title">Collected light.</h2>
+        <button data-close aria-label="Close contact sheet">×</button>
+      </div>
+      <div class="gallery-toolbar">
+        <div class="filter-group" aria-label="Filter photographs">
+          <button data-filter="all" aria-pressed="true">All</button
+          ><button data-filter="france" aria-pressed="false">France</button
+          ><button data-filter="china" aria-pressed="false">China</button
+          ><button data-filter="other" aria-pressed="false">Elsewhere</button>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="hero" class="min-h-screen flex items-center justify-center relative pt-16 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-
-            <!-- Text Content -->
-            <div class="hero-text order-2 md:order-1 opacity-0 translate-y-10">
-                <span class="inline-block py-1 px-3 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
-                    Economics PhD Candidate
-                </span>
-                <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6 tracking-tight leading-tight">
-                    Hi, I'm <span class="text-primary">Shuo</span>.
-                </h1>
-                <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-lg text-justify">
-                    My name is Shuo Song. I am a PhD student at the Toulouse School of Economics, France. My research
-                    interests lie in
-                    Empirical Industrial Organization.
-                    My current work focuses on the IO of GenAI. Specifically, I study the competition among LLMs
-                    and the associated infrastructure sectors,
-                    such as semiconductors and energy.<br><br>
-                    Prior to joining TSE, I obtained my Bachelor's degree from the Wang Yanan Institute for Studies in
-                    Economics (WISE) at Xiamen University, China.
-                    Outside of economics, I cultivate interests in photography and the history of Ming Empire
-                    (1368-1644).<br><br>
-                    My favorite poet is XIN Qiji.
-                </p>
-                <div class="flex space-x-4">
-                    <a href="#research"
-                        class="px-8 py-3 bg-primary text-white rounded-full font-medium hover:bg-indigo-700 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        View Research
-                    </a>
-                    <a href="mailto:shuo.song@tse-fr.eu"
-                        class="px-8 py-3 bg-white text-gray-900 border border-gray-200 rounded-full font-medium hover:bg-gray-50 transition-all">
-                        Contact Me
-                    </a>
-                </div>
-            </div>
-
-            <!-- Visual -->
-            <div class="hero-visual order-1 md:order-2 flex justify-center opacity-0 scale-90">
-                <div class="relative w-64 h-64 md:w-96 md:h-96">
-                    <div
-                        class="absolute inset-0 bg-accent/20 rounded-[2rem] transform rotate-6 blur-xl animate-pulse-slow">
-                    </div>
-                    <div
-                        class="absolute inset-0 bg-primary/20 rounded-[2rem] transform -rotate-6 blur-xl animate-pulse-slow delay-75">
-                    </div>
-                    <img src="figures/photo2.jpg" alt="Shuo Song"
-                        class="relative w-full h-full object-cover rounded-[2rem] shadow-2xl border-4 border-white z-10" />
-
-                    <!-- Floating Badge -->
-                    <div class="floating-badge absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg z-20">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-3 h-3 bg-green-500 rounded-full animate-ping-slow"></div>
-                            <span class="text-sm font-medium text-gray-700">Open to Talk</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-400 animate-bounce">
-            <i data-lucide="arrow-down"></i>
-        </div>
-    </section>
-
-    <!-- Research Section -->
-    <section id="research" class="py-24 bg-white relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="section-header text-center mb-16 opacity-0 translate-y-10">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Research</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Paper 1 -->
-                <div
-                    class="paper-card bg-secondary p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all group opacity-0 translate-y-10">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="p-2 rounded-lg bg-blue-50 text-blue-600">
-                            <i data-lucide="file-text"></i>
-                        </div>
-                        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">In Progress</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-                        Nonstationary Intelligence Demand, Data Flywheel, and the Strategic Release of Large Language
-                        Models.
-                    </h3>
-                    <p class="text-sm text-gray-500 mb-4 italic">Shuo Song</p>
-                    <p class="text-gray-600 mb-6 line-clamp-3">
-                        None.
-                    </p>
-                    <a href="#"
-                        class="inline-flex items-center text-primary font-medium hover:text-indigo-700 transition-colors">
-                        Draft Coming Soon <i data-lucide="arrow-right"
-                            class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                </div>
-
-                <!-- Paper 2 -->
-                <div
-                    class="paper-card bg-secondary p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all group opacity-0 translate-y-10">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="p-2 rounded-lg bg-blue-50 text-blue-600">
-                            <i data-lucide="file-text"></i>
-                        </div>
-                        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">In Progress</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-                        Who Snatched Your Deal: AI Race and Memory Device Market.
-                    </h3>
-                    <p class="text-sm text-gray-500 mb-4 italic">Shuo Song</p>
-                    <p class="text-gray-600 mb-6 line-clamp-3">
-                        None.
-                    </p>
-                    <a href="#"
-                        class="inline-flex items-center text-primary font-medium hover:text-indigo-700 transition-colors">
-                        Draft Coming Soon <i data-lucide="arrow-right"
-                            class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                </div>
-
-                <!-- Paper 3 -->
-                <div
-                    class="paper-card bg-secondary p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all group opacity-0 translate-y-10">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="p-2 rounded-lg bg-orange-50 text-orange-600">
-                            <i data-lucide="book-open"></i>
-                        </div>
-                        <!--
-                        <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">In Progress</span>
-                        -->
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-                        More to come...
-                    </h3>
-                    <!--
-                    <p class="text-sm text-gray-500 mb-4 italic">Shuo Song</p>
-                    <p class="text-gray-600 mb-6 line-clamp-3">
-                        More to come...
-                    </p>
-                    <a href="#"
-                        class="inline-flex items-center text-primary font-medium hover:text-indigo-700 transition-colors">
-                        Draft Coming Soon <i data-lucide="arrow-right"
-                            class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Library Section -->
-    <section id="library" class="py-24 bg-secondary relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="section-header text-center mb-16 opacity-0 translate-y-10">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Library</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    A curated selection of books that have shaped my perspective.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Book Card 1 -->
-                <div
-                    class="book-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl transition-all group opacity-0 translate-y-10 flex flex-col items-center text-center cursor-pointer">
-                    <div
-                        class="w-40 h-56 mb-6 overflow-hidden rounded-md shadow-md group-hover:shadow-lg transition-shadow">
-                        <img src="figures/jiaxuan.jpg" alt="稼轩词编年笺注"
-                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">
-                        稼轩词编年笺注
-                    </h3>
-                    <p class="text-sm text-gray-500 mb-4 italic">[宋] 辛弃疾 著 / 邓广铭 注解</p>
-                    <p class="text-gray-600 text-sm leading-relaxed line-clamp-4 text-justify">
-                        词中之龙。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Essai Section -->
-    <section id="essai" class="py-24 bg-white relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="section-header text-center mb-16 opacity-0 translate-y-10">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Essai</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Personal reflections, scattered thoughts, and academic musings.
-                </p>
-            </div>
-
-            <div class="max-w-4xl mx-auto space-y-8">
-                <!-- Essai Item 1 -->
-                <article
-                    class="essai-item group flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 rounded-2xl border border-transparent hover:border-gray-100 hover:bg-secondary/50 transition-all cursor-pointer opacity-0 translate-y-10">
-                    <div class="w-full sm:w-48 h-48 sm:h-32 flex-shrink-0 overflow-hidden rounded-xl shadow-sm">
-                        <img src="figures/essai_thumbnail.png" alt="Thumbnail"
-                            class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
-                    </div>
-                    <div class="flex-1 w-full text-left">
-                        <div class="flex items-center text-sm text-gray-400 mb-2 space-x-4">
-                            <span><i data-lucide="calendar" class="inline w-4 h-4 mr-1"></i> May 14, 2026</span>
-                            <span
-                                class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">Musings</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">
-                            Test Title
-                        </h3>
-                        <p class="text-gray-600 mb-4 line-clamp-2">
-                            Test Content...
-                        </p>
-                        <a href="#"
-                            class="inline-flex items-center text-primary font-medium hover:text-indigo-800 transition-colors text-sm">
-                            Read Essay <i data-lucide="arrow-right"
-                                class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
-                        </a>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-24 bg-secondary">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="section-header text-center mb-16 opacity-0 translate-y-10">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Gallery</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Capturing moments from my travels and daily life.
-                </p>
-            </div>
-
-            <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
-                <!-- Photo 1 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/Toulouse.jpg" alt="Toulouse"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">La Garonne, Toulouse</span>
-                    </div>
-                </div>
-
-                <!-- Photo 2 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/Najac.jpg" alt="Najac"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">Najac</span>
-                    </div>
-                </div>
-
-                <!-- Photo 3 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/xmas.jpg" alt="Le Capitole, Toulouse"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">Le Capitole, Toulouse</span>
-                    </div>
-                </div>
-
-                <!-- Photo 4 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/TSE.jpg" alt="TSE"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">TSE</span>
-                    </div>
-                </div>
-
-                <!-- Photo 5 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/Qingdao.JPG" alt="Tsingtao"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">Tsingtao</span>
-                    </div>
-                </div>
-
-                <!-- Photo 6 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/westlake.jpg" alt="West Lake, Hangzhou"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">West Lake, Hangzhou</span>
-                    </div>
-                </div>
-
-                <!-- Photo 7 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/yuewang.jpg" alt="Yuewang Temple, Hangzhou"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">Yuewang Temple, Hangzhou</span>
-                    </div>
-                </div>
-
-                <!-- Photo 8 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/wukong.jpg" alt="Wukong"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">Black Myth: Wukong</span>
-                    </div>
-                </div>
-
-                <!-- Photo 9 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/albi.jpg" alt="Albi"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">Cathédrale Sainte-Cécile d'Albi</span>
-                    </div>
-                </div>
-
-                <!-- Photo 10 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/nice.jpg" alt="Nice"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">Nice</span>
-                    </div>
-                </div>
-
-                <!-- Photo 11 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/antibes.jpg" alt="Antibes"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">Antibes</span>
-                    </div>
-                </div>
-
-                <!-- Photo 12 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/monaco.jpg" alt="Monaco"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">Monaco</span>
-                    </div>
-                </div>
-
-                <!-- Photo 13 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/cannes.jpg" alt="Cannes"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">Cannes</span>
-                    </div>
-                </div>
-
-                <!-- Photo 14 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/collioure.jpg" alt="Collioure"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">Collioure</span>
-                    </div>
-                </div>
-
-                <!-- Photo 15 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/xmu.jpeg" alt="Xiamen University"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">Xiamen University</span>
-                    </div>
-                </div>
-
-                <!-- Photo 16 -->
-                <div
-                    class="photo-item break-inside-avoid relative group rounded-2xl overflow-hidden cursor-pointer opacity-0 translate-y-10">
-                    <img src="figures/plane.jpg" alt="Light Painting"
-                        class="w-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <span class="text-white font-medium text-lg">Light Painting</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-4 md:mb-0">
-                <p class="text-gray-500 text-sm">
-                    © 2026 Shuo Song. All rights reserved.
-                </p>
-            </div>
-
-            <div class="flex space-x-6">
-                <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i data-lucide="twitter"></i></a>
-                <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i data-lucide="github"></i></a>
-                <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i
-                        data-lucide="linkedin"></i></a>
-                <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i data-lucide="mail"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- GSAP & Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="script.js"></script>
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-    </script>
-</body>
-
+        <span class="mono" id="gallery-count" role="status">16 MOMENTS</span>
+      </div>
+      <div id="gallery-grid" class="gallery-grid"></div>
+    </dialog>
+    <dialog id="lightbox" class="lightbox" aria-label="Full size photograph">
+      <button data-close aria-label="Close photograph">×</button
+      ><img
+        id="lightbox-image"
+        src="assets/photos/toulouse-large.webp"
+        alt="La Garonne, Toulouse"
+      />
+    </dialog>
+    <noscript
+      ><style>
+        .visitor-card {
+          display: none;
+        }
+        body[data-phase="sealed"] .hub-reveal {
+          opacity: 1;
+          transform: none;
+        }
+        .archive-slab {
+          transform: none !important;
+          opacity: 1 !important;
+          position: relative !important;
+          inset: auto !important;
+          width: 100% !important;
+          height: auto !important;
+        }
+        .archive-deck {
+          position: relative;
+          inset: auto;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 25px;
+          height: auto !important;
+        }
+        .archive-room {
+          min-height: 0 !important;
+          height: auto;
+          padding-bottom: 40px;
+        }
+        .room-stage {
+          position: relative !important;
+          inset: auto !important;
+          min-height: 0;
+          margin-top: 35px;
+          height: auto;
+        }
+        .slab-body {
+          display: none;
+        }
+        .slab-caption {
+          opacity: 1 !important;
+          transform: none !important;
+          position: static !important;
+        }
+        .reading-room[hidden],
+        .reader,
+        .elsewhere[hidden] {
+          display: block !important;
+        }
+        .reader {
+          padding: 35px;
+        }
+        .entry,
+        .header-tools,
+        .collection-controls,
+        .light-leak,
+        .stage-datum,
+        .release-line,
+        .seal-label,
+        .specimen-rule {
+          display: none !important;
+        }
+        .site-header {
+          position: relative;
+        }
+        .system-footer {
+          position: relative;
+        }
+      </style>
+      <p class="noscript-note">
+        The animated archive uses JavaScript. All written records and original
+        photograph links remain available below.
+      </p></noscript
+    >
+  </body>
 </html>
