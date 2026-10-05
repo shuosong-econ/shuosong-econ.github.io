@@ -1,0 +1,14 @@
+{
+  "name": "shuo-song-observatory",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shuo Song's personal research observatory — a dependency-free static website",
+  "scripts": {
+    "dev": "python3 -m http.server 4173 --bind 127.0.0.1",
+    "check": "node --check script.js && node scripts/check.mjs",
+    "format": "prettier --write index.html styles.css script.js scripts/check.mjs README.md"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.9"
+  }
+}
