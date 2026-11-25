@@ -1,55 +1,52 @@
 import assert from "node:assert/strict";
 import {
-  createQuinticMesh,
-  quinticPoint,
+  SURFACES,
+  createSurfaceMesh,
+  fermatPoint,
   projectionMatrix,
   projectPoint,
 } from "../calabi-yau.mjs";
-const fifth = (x, y) => [
-  x ** 5 - 10 * x ** 3 * y ** 2 + 5 * x * y ** 4,
-  5 * x ** 4 * y - 10 * x ** 2 * y ** 3 + y ** 5,
-];
+const power = (x, y, n) => {
+  let re = 1,
+    im = 0;
+  for (let i = 0; i < n; i++) [re, im] = [re * x - im * y, re * y + im * x];
+  return [re, im];
+};
 let residual = 0;
-for (let a = 0; a < 5; a++)
-  for (let b = 0; b < 5; b++) {
-    for (const u of [
-      0,
-      0.00001,
-      0.3,
-      Math.PI / 4,
-      Math.PI / 2 - 0.00001,
-      Math.PI / 2,
-    ]) {
-      for (const v of [-1.12, -0.001, 0, 0.001, 1.12]) {
-        const [x, y, z, w] = quinticPoint(u, v, a, b);
-        const p = fifth(x, y),
-          q = fifth(z, w);
-        residual = Math.max(residual, Math.hypot(p[0] + q[0] - 1, p[1] + q[1]));
+const counts = [];
+for (const specimen of SURFACES) {
+  const { powers, extent, scale, aspect } = specimen;
+  for (let a = 0; a < powers[0]; a++)
+    for (let b = 0; b < powers[1]; b++) {
+      for (const u of [
+        0,
+        0.00001,
+        0.3,
+        Math.PI / 4,
+        Math.PI / 2 - 0.00001,
+        Math.PI / 2,
+      ]) {
+        for (const v of [-extent, -0.001, 0, 0.001, extent]) {
+          const [x, y, z, w] = fermatPoint(u, v, a, b, powers);
+          const p = power(x, y, powers[0]),
+            q = power(z, w, powers[1]);
+          residual = Math.max(
+            residual,
+            Math.hypot(p[0] + q[0] - 1, p[1] + q[1]),
+          );
+        }
       }
     }
-  }
-assert.ok(residual < 1e-11, `Quintic residual ${residual}`);
-const mesh = createQuinticMesh();
-const count = mesh.vertices.length / 14;
-assert.equal(count, 25 * 29 * 41);
-assert.ok(mesh.vertices.every(Number.isFinite));
-assert.ok(mesh.indices.every((i) => i < count));
-assert.ok(mesh.edges.every((i) => i < count));
-assert.throws(() => createQuinticMesh(0, 10), RangeError);
-assert.throws(() => createQuinticMesh(10, 11), RangeError);
-assert.throws(() => createQuinticMesh(200, 200), RangeError);
-assert.throws(() => projectionMatrix(4), RangeError);
-assert.throws(() => projectionMatrix(0, Infinity), RangeError);
-const shapes = [];
-for (let view = 0; view < 4; view++) {
-  const base = projectionMatrix(view, 0);
-  shapes.push(
-    Array.from(base)
-      .map((n) => n.toFixed(4))
-      .join(","),
-  );
+  const mesh = createSurfaceMesh(specimen);
+  const count = mesh.vertices.length / 14;
+  counts.push(count);
+  assert.equal(count, powers[0] * powers[1] * 29 * 41);
+  assert.ok(mesh.vertices.every(Number.isFinite));
+  assert.ok(mesh.indices.every((i) => i < count));
+  assert.ok(mesh.edges.every((i) => i < count));
+  assert.equal(mesh.indices.length, powers[0] * powers[1] * 28 * 40 * 6);
   for (let t = 0; t < 400; t += 8) {
-    const m = projectionMatrix(view, t);
+    const m = projectionMatrix(specimen, t);
     for (let a = 0; a < 4; a++)
       for (let b = 0; b < 4; b++) {
         let dot = 0;
@@ -60,19 +57,44 @@ for (let view = 0; view < 4; view++) {
         );
       }
     for (let i = 0; i < mesh.vertices.length; i += 14 * 4) {
-      const p = projectPoint(mesh.vertices.subarray(i, i + 4), m);
-      const screenX = 0.5 + p[0] * 0.2;
-      const screenY = 0.535 - (p[1] * 0.2 * 480) / 620;
-      assert.ok(screenX > 0.13 && screenX < 0.87, "Cover side margin");
-      assert.ok(
-        screenY > 0.27 && screenY < 0.8,
-        "Keep labels and serial number clear",
-      );
+      const p = projectPoint(mesh.vertices.subarray(i, i + 4), m, aspect);
+      const x = 0.5 + (p[0] * scale) / 2;
+      const y = 0.535 - (((p[1] * scale) / 2) * 480) / 620;
+      assert.ok(x > 0.13 && x < 0.87, `${specimen.name}: cover side margin`);
+      assert.ok(y > 0.27 && y < 0.8, `${specimen.name}: label clearance`);
       assert.ok(Math.abs(p[2] * 0.24) < 1, "Depth clipping");
     }
   }
 }
-assert.equal(new Set(shapes).size, 4);
+assert.ok(residual < 1e-11, `Fermat residual ${residual}`);
+assert.equal(
+  new Set(SURFACES.map((s) => s.powers.join(","))).size,
+  4,
+  "Four distinct equations",
+);
+assert.equal(new Set(counts).size, 4, "Four independently sampled geometries");
+assert.throws(() => createSurfaceMesh(SURFACES[0], 0, 10), RangeError);
+assert.throws(() => createSurfaceMesh(SURFACES[0], 10, 11), RangeError);
+assert.throws(() => createSurfaceMesh(SURFACES[0], 200, 200), RangeError);
+for (const powers of [[1, 5], [3, 9], [3, NaN], [3], [3.5, 4]]) {
+  assert.throws(
+    () => createSurfaceMesh({ ...SURFACES[0], powers }),
+    RangeError,
+  );
+}
+assert.throws(
+  () => createSurfaceMesh({ ...SURFACES[0], extent: Infinity }),
+  RangeError,
+);
+assert.throws(
+  () => projectionMatrix({ ...SURFACES[0], angles: [0] }),
+  RangeError,
+);
+assert.throws(
+  () => projectionMatrix({ ...SURFACES[0], roll: NaN }),
+  RangeError,
+);
+assert.throws(() => projectionMatrix(SURFACES[0], Infinity), RangeError);
 console.log(
-  `PASS: 25 quintic patches, ${count} vertices, residual ${residual.toExponential(2)}, 4 orthonormal projections, animated bounds and index limits.`,
+  `PASS: four distinct equations, mesh sizes ${counts.join("/")}, residual ${residual.toExponential(2)}, rotations, animated bounds and index limits.`,
 );
