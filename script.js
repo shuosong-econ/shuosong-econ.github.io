@@ -1358,7 +1358,10 @@ import { createCalabiYauRenderer } from "./calabi-yau.mjs";
     )
       return;
     if (paused && !reliefDirty) return;
-    if (!paused && timestamp - lastFrame < 1000 / 24) {
+    if (
+      !paused &&
+      timestamp - lastFrame < 1000 / (mobileLayout.matches ? 24 : 30)
+    ) {
       scheduleRelief();
       return;
     }

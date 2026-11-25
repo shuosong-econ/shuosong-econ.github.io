@@ -3,39 +3,45 @@
 const TAU = Math.PI * 2;
 export const SURFACES = [
   {
-    name: "Elliptic aperture",
+    name: "Elliptic fold",
     powers: [3, 3],
-    extent: 0.68,
-    angles: [0, 0, 0, 0, 0, 0.78],
-    roll: 0,
-    scale: 0.53,
-    aspect: [0.94, 1.02, 1],
+    extent: 0.62,
+    angles: [0.28, -0.18, 0.48, 0.32, 0.72, -0.22],
+    roll: -0.2,
+    scale: 0.45,
+    aspect: [0.86, 1.08, 1],
+    phase: 0,
   },
   {
-    name: "Quartic wings",
+    name: "Quartic sail",
     powers: [4, 4],
-    extent: 0.52,
-    angles: [0, 0, 0, 0, 0, 0.78],
-    roll: Math.PI / 2,
-    scale: 0.54,
-    aspect: [1.22, 0.76, 1],
+    extent: 0.48,
+    angles: [0.12, 0.32, 0.28, -0.4, 1.1, 0.18],
+    roll: -0.45,
+    scale: 0.46,
+    aspect: [1.18, 0.88, 1],
+    phase: 1.5,
   },
   {
-    name: "Quintic corolla",
+    name: "Quintic bloom",
     powers: [5, 5],
-    extent: 0.95,
-    angles: [0, 0, 0, 0, 1.5, 0.15],
-    roll: 0.3,
-    scale: 0.515,
+    extent: 0.78,
+    angles: [0.15, -0.18, 0.1, 0.12, 1.38, -0.38],
+    roll: 0.5,
+    scale: 0.46,
+    aspect: [1, 1, 1],
+    phase: 3,
   },
   {
-    name: "Sextic column",
+    name: "Sextic helix",
     powers: [2, 6],
-    extent: 0.65,
-    angles: [0, 0, 0.6, 0.1, 0.8, 0.2],
-    roll: 0,
-    scale: 0.48,
-    aspect: [0.66, 1.15, 1],
+    extent: 0.66,
+    angles: [0.48, 0.15, 1.05, 0.18, 0.45, -0.28],
+    roll: 0.25,
+    timeOffset: 6,
+    scale: 0.43,
+    aspect: [0.9, 1.07, 1],
+    phase: 4.5,
   },
 ].map((specimen) =>
   Object.freeze({
@@ -149,14 +155,23 @@ export function projectionMatrix(specimen, time = 0) {
     specimen.angles.length !== 6 ||
     !specimen.angles.every(Number.isFinite) ||
     !Number.isFinite(specimen.roll ?? 0) ||
+    !Number.isFinite(specimen.timeOffset ?? 0) ||
     !Number.isFinite(time)
   )
     throw new RangeError("Invalid projection.");
   const angles = [...specimen.angles];
-  angles[0] += 0.045 * Math.sin(time * 0.13);
-  angles[2] += 0.055 * Math.sin(time * 0.11);
-  angles[4] += 0.04 * Math.sin(time * 0.16);
-  angles.push(specimen.roll ?? 0);
+  const phase = specimen.phase ?? 0;
+  if (!Number.isFinite(phase)) throw new RangeError("Invalid motion phase.");
+  // Coordinated, periodic rotations keep both shape and speed continuous.
+  // Different phase offsets let the four objects move independently.
+  const t = ((time + (specimen.timeOffset ?? 0)) * TAU) / 48;
+  angles[0] += 0.24 * Math.sin(t + phase);
+  angles[1] += 0.12 * Math.sin(2 * t - phase);
+  angles[2] += 0.28 * Math.sin(t + phase + 0.7);
+  angles[3] += 0.12 * Math.sin(2 * t + phase);
+  angles[4] += 0.38 * Math.sin(2 * t - phase + 0.4);
+  angles[5] += 0.1 * Math.sin(3 * t + phase);
+  angles.push((specimen.roll ?? 0) + 0.12 * Math.sin(t - phase));
   const matrix = new Float32Array([
     1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
   ]);
@@ -217,25 +232,39 @@ void main() {
 const FRAGMENT = `
 #extension GL_OES_standard_derivatives : enable
 precision mediump float;
+uniform float uLightPhase;
 varying vec3 vNormal;
 varying vec3 vPosition;
 varying vec2 vUV;
 void main() {
   vec3 normal = normalize(vNormal);
   if (normal.z < 0.0) normal = -normal;
-  vec3 light = normalize(vec3(-0.55, 0.8, 1.3));
-  float diffuse = max(dot(normal, light), 0.0);
-  float rim = pow(1.0 - abs(normal.z), 2.0);
-  float specular = pow(max(dot(normal, normalize(light + vec3(0.0, 0.0, 1.0))), 0.0), 42.0);
-  float depth = clamp(0.5 + vPosition.z * 0.22, 0.0, 1.0);
-  vec3 shade = mix(vec3(0.27, 0.34, 0.30), vec3(0.91, 0.94, 0.88), 0.23 + diffuse * 0.72);
-  shade += specular * 0.19 + rim * 0.065;
-  shade = mix(shade, vec3(0.82, 0.87, 0.80), (1.0 - depth) * 0.22);
+  vec3 eye = vec3(0.0, 0.0, 1.0);
+  vec3 key = normalize(vec3(-0.65 + 0.32 * sin(uLightPhase), 0.85, 1.4));
+  vec3 fill = normalize(vec3(0.9, -0.35 + 0.25 * cos(uLightPhase), 0.9));
+  float diffuse = max(dot(normal, key), 0.0);
+  float bounce = max(dot(normal, fill), 0.0);
+  float edge = pow(1.0 - abs(normal.z), 2.5);
+  float depth = clamp(0.5 + vPosition.z * 0.18, 0.0, 1.0);
+  // Pearl-white body with a cool silver shadow and a warm reflected softbox.
+  // Broad fill light keeps the folds legible without a dark, cloth-like finish.
+  vec3 shade = mix(vec3(0.48, 0.59, 0.58), vec3(0.88, 0.94, 0.91), 0.35 + diffuse * 0.65);
+  shade += vec3(0.08, 0.09, 0.1) * bounce;
+  float gloss = pow(max(dot(normal, normalize(key + eye)), 0.0), 48.0);
+  float softGloss = pow(max(dot(normal, normalize(fill + eye)), 0.0), 16.0);
+  vec3 reflection = reflect(-eye, normal);
+  float bandPosition = -0.3 + 0.32 * sin(uLightPhase);
+  float softbox = exp(-pow((reflection.x - bandPosition) / 0.24, 2.0));
+  softbox *= smoothstep(-0.65, 0.45, reflection.y);
+  shade += vec3(1.0, 0.98, 0.92) * (gloss * 0.38 + softbox * 0.22);
+  shade += vec3(0.84, 0.94, 1.0) * (softGloss * 0.16 + edge * 0.1);
+  shade *= 0.94 + depth * 0.06;
   vec2 grid = vUV * vec2(14.0, 20.0);
   vec2 distanceToLine = abs(fract(grid - 0.5) - 0.5) / max(fwidth(grid), vec2(0.001));
-  float ink = 1.0 - smoothstep(0.35, 1.05, min(distanceToLine.x, distanceToLine.y));
-  shade = mix(shade, vec3(0.28, 0.37, 0.32), ink * 0.23);
-  gl_FragColor = vec4(shade, 1.0);
+  float ink = 1.0 - smoothstep(0.15, 0.8, min(distanceToLine.x, distanceToLine.y));
+  // Engraved detail recedes in the highlights instead of darkening every fold.
+  shade = mix(shade, shade * vec3(0.73, 0.8, 0.78), ink * 0.22 * (1.0 - min(gloss + softbox, 1.0) * 0.7));
+  gl_FragColor = vec4(min(shade, vec3(1.0)), 1.0);
 }`;
 
 function setupGPU(canvas, meshes) {
@@ -303,13 +332,14 @@ function setupGPU(canvas, meshes) {
     const rotation = gl.getUniformLocation(program, "uRotation");
     const scale = gl.getUniformLocation(program, "uScale");
     const aspect = gl.getUniformLocation(program, "uAspect");
+    const lightPhase = gl.getUniformLocation(program, "uLightPhase");
     gl.enable(gl.DEPTH_TEST);
     gl.disable(gl.CULL_FACE);
     gl.clearColor(0, 0, 0, 0);
     return {
       gl,
       dispose,
-      render(matrix, width, height, view, zoom, proportions) {
+      render(matrix, width, height, view, zoom, proportions, time) {
         if (gl.isContextLost()) return false;
         if (canvas.width !== width || canvas.height !== height) {
           canvas.width = width;
@@ -330,6 +360,7 @@ function setupGPU(canvas, meshes) {
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.uniformMatrix4fv(rotation, false, matrix);
         gl.uniform3fv(aspect, proportions);
+        gl.uniform1f(lightPhase, ((time * TAU) / 24 + view * 0.7) % TAU);
         gl.uniform2f(scale, zoom, (zoom * width) / height);
         gl.drawElements(
           gl.TRIANGLES,
@@ -418,6 +449,7 @@ export function createCalabiYauRenderer(specimens = SURFACES) {
           view,
           specimen.scale,
           specimen.aspect ?? [1, 1, 1],
+          time,
         )
       ) {
         ctx.drawImage(surface, 0, 0);
