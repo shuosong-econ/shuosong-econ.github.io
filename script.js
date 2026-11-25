@@ -1338,7 +1338,7 @@ import { createCalabiYauRenderer } from "./calabi-yau.mjs";
     if (event.key === "Escape" && view !== "archive") navigate("archive");
   });
 
-  // One quintic section, seen through four slowly evolving 4D viewing frames.
+  // Four distinct Fermat sections, each with a slowly evolving 4D viewing frame.
   const manifold = createCalabiYauRenderer();
   const reliefs = $$(".relief").map((canvas) => ({
     canvas,
