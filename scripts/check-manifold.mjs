@@ -45,7 +45,7 @@ for (const specimen of SURFACES) {
   assert.ok(mesh.indices.every((i) => i < count));
   assert.ok(mesh.edges.every((i) => i < count));
   assert.equal(mesh.indices.length, powers[0] * powers[1] * 28 * 40 * 6);
-  for (let t = 0; t < 400; t += 8) {
+  for (let t = 0; t < 48; t += 0.5) {
     const m = projectionMatrix(specimen, t);
     for (let a = 0; a < 4; a++)
       for (let b = 0; b < 4; b++) {
@@ -65,6 +65,38 @@ for (const specimen of SURFACES) {
       assert.ok(Math.abs(p[2] * 0.24) < 1, "Depth clipping");
     }
   }
+  const first = projectionMatrix(specimen, 0);
+  const fourthSecond = projectionMatrix(specimen, 4);
+  const loop = projectionMatrix(specimen, 48);
+  for (let i = 0; i < 16; i++)
+    assert.ok(
+      Math.abs(first[i] - loop[i]) < 1e-6,
+      "Motion loop closes without a jump",
+    );
+  let movement = 0,
+    samples = 0;
+  for (let i = 0; i < mesh.vertices.length; i += 14 * 20) {
+    const point = mesh.vertices.subarray(i, i + 4);
+    const a = projectPoint(point, first, aspect);
+    const b = projectPoint(point, fourthSecond, aspect);
+    movement += Math.hypot(a[0] - b[0], a[1] - b[1]) * scale * 240;
+    samples++;
+  }
+  assert.ok(
+    movement / samples > 6,
+    `${specimen.name}: motion must be visible within four seconds`,
+  );
+  for (let t = 0; t < 48; t += 0.5) {
+    const a = projectionMatrix(specimen, t),
+      b = projectionMatrix(specimen, t + 1 / 30);
+    assert.ok(
+      a.every((v, i) => Math.abs(v - b[i]) < 0.012),
+      "Continuous frame-to-frame rotation",
+    );
+  }
+  console.log(
+    `${specimen.name}: mean four-second movement ${(movement / samples).toFixed(1)} canvas pixels`,
+  );
 }
 assert.ok(residual < 1e-11, `Fermat residual ${residual}`);
 assert.equal(
@@ -96,5 +128,5 @@ assert.throws(
 );
 assert.throws(() => projectionMatrix(SURFACES[0], Infinity), RangeError);
 console.log(
-  `PASS: four distinct equations, mesh sizes ${counts.join("/")}, residual ${residual.toExponential(2)}, rotations, animated bounds and index limits.`,
+  `PASS: four distinct equations, mesh sizes ${counts.join("/")}, residual ${residual.toExponential(2)}, rotations, visible motion, seamless loop, animated bounds and index limits.`,
 );
