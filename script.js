@@ -1,4 +1,4 @@
-"use strict";
+import { createCalabiYauRenderer } from "./calabi-yau.mjs";
 
 (() => {
   const $ = (selector, scope = document) => scope.querySelector(selector);
@@ -1338,8 +1338,8 @@
     if (event.key === "Escape" && view !== "archive") navigate("archive");
   });
 
-  // Original optical reliefs: layered incisions, interference, and discontinuous strata.
-  // The plates themselves are the navigation objects; there is no unrelated decorative orbit.
+  // One quintic section, seen through four slowly evolving 4D viewing frames.
+  const manifold = createCalabiYauRenderer();
   const reliefs = $$(".relief").map((canvas) => ({
     canvas,
     context: canvas.getContext("2d"),
@@ -1350,7 +1350,13 @@
   }
   function drawReliefs(timestamp) {
     frame = 0;
-    if (document.hidden || view !== "archive" || !ambientVisible) return;
+    if (
+      document.hidden ||
+      view !== "archive" ||
+      !ambientVisible ||
+      phase === "sealed"
+    )
+      return;
     if (paused && !reliefDirty) return;
     if (!paused && timestamp - lastFrame < 1000 / 24) {
       scheduleRelief();
@@ -1359,109 +1365,11 @@
     if (!paused)
       reliefTime += Math.min((timestamp - lastFrame) / 1000 || 0, 0.06);
     lastFrame = timestamp;
-    for (const { canvas, context: ctx, type } of reliefs) {
+    for (const { context: ctx, type } of reliefs) {
       if (!ctx) continue;
       if (mobileLayout.matches && phase === "ready" && type !== selectedSlab)
         continue;
-      const w = canvas.width,
-        h = canvas.height;
-      ctx.clearRect(0, 0, w, h);
-      const t = reliefTime * 0.15;
-      // A softly shaded, milled surface; its boundaries echo the layers of the archive.
-      const gradient = ctx.createLinearGradient(
-        w * 0.18,
-        h * 0.22,
-        w * 0.88,
-        h * 0.82,
-      );
-      gradient.addColorStop(0, "#eff3e880");
-      gradient.addColorStop(0.5, "#a4b39120");
-      gradient.addColorStop(1, "#e4ecda30");
-      ctx.fillStyle = gradient;
-      ctx.fillRect(w * 0.12, h * 0.22, w * 0.76, h * 0.58);
-      ctx.save();
-      ctx.beginPath();
-      ctx.rect(w * 0.13, h * 0.23, w * 0.75, h * 0.56);
-      ctx.clip();
-      if (type === 0) {
-        for (let line = 0; line < 64; line++) {
-          const baseY = h * 0.24 + line * 5.6;
-          ctx.beginPath();
-          for (let step = 0; step <= 100; step++) {
-            const x = w * (0.1 + (step / 100) * 0.85);
-            const fold = Math.exp(-Math.pow((x / w - 0.55) * 4.2, 2));
-            const wave = Math.sin(line * 0.09 + t + (x / w) * 2.2) * 54 * fold;
-            const y = baseY + wave;
-            step ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
-          }
-          ctx.strokeStyle = line % 7 === 0 ? "#64794e95" : "#84937665";
-          ctx.lineWidth = line % 7 === 0 ? 1.5 : 0.8;
-          ctx.stroke();
-        }
-      } else if (type === 1) {
-        for (let line = 0; line < 75; line++) {
-          ctx.beginPath();
-          for (let step = 0; step <= 75; step++) {
-            const x = w * (0.12 + (step / 75) * 0.8),
-              y = h * 0.22 + line * 4.8;
-            const ridge =
-              Math.exp(-Math.pow((x / w - 0.5) * 7, 2)) *
-              Math.sin(line / 14 + t) *
-              95;
-            const px = x + Math.sin(line * 0.05 + t) * 12;
-            step ? ctx.lineTo(px, y + ridge) : ctx.moveTo(px, y + ridge);
-          }
-          ctx.strokeStyle = line % 9 === 0 ? "#7d93626e" : "#717e6260";
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-        }
-        ctx.strokeStyle = "#71805844";
-        ctx.lineWidth = 0.7;
-        for (let x = 0.22; x < 0.85; x += 0.08) {
-          ctx.beginPath();
-          ctx.moveTo(w * x, h * 0.25);
-          ctx.lineTo(w * x, h * 0.77);
-          ctx.stroke();
-        }
-      } else if (type === 2) {
-        for (let line = 0; line < 75; line++) {
-          const y = h * 0.23 + line * 4.8;
-          const indentation = 20 + Math.sin(line * 0.14 + t) * 15;
-          const cut = w * (0.55 + 0.06 * Math.sin(line * 0.18 + t));
-          ctx.strokeStyle = line % 6 === 0 ? "#778967a0" : "#a2af915f";
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(w * 0.17 + indentation, y);
-          ctx.lineTo(cut - 16, y);
-          ctx.stroke();
-          ctx.beginPath();
-          ctx.moveTo(cut + 13, y + 15);
-          ctx.lineTo(w * 0.87 - indentation, y + 15);
-          ctx.stroke();
-        }
-      } else {
-        for (let line = 0; line < 85; line++) {
-          const x = w * 0.12 + line * 4.4;
-          const cut = h * (0.51 + 0.04 * Math.sin(line * 0.06 + t));
-          ctx.strokeStyle = line % 11 === 0 ? "#6d7e52a0" : "#82906a65";
-          ctx.lineWidth = line % 5 === 0 ? 1.6 : 0.7;
-          ctx.beginPath();
-          ctx.moveTo(x, h * 0.24 + Math.sin(line * 0.08) * 16);
-          ctx.lineTo(x + 16, cut - 12);
-          ctx.stroke();
-          ctx.beginPath();
-          ctx.moveTo(x + 23, cut + 8);
-          ctx.lineTo(x + 42, h * 0.8);
-          ctx.stroke();
-        }
-      }
-      // Thin diagnostic cuts give each translucent plate a distinct internal construction.
-      ctx.fillStyle = "#f4f6ec77";
-      ctx.fillRect(w * 0.17, h * 0.58, w * 0.69, 2);
-      ctx.strokeStyle = "#75816460";
-      ctx.lineWidth = 0.8;
-      ctx.strokeRect(w * 0.19, h * 0.28, w * 0.6, h * 0.44);
-      ctx.restore();
+      manifold.draw(ctx, type, reliefTime);
     }
     reliefDirty = false;
     if (!paused) scheduleRelief();
